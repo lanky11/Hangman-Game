@@ -1,0 +1,10 @@
+
+
+.jumbotron {
+    background-image: url("../../assets/images/golfcourse-nz.jpg");
+    background-size: cover;
+}
+
+.jumbotron h1, p {
+    color: white;
+}
