@@ -16,8 +16,16 @@ var incorrectGuessedLetters = [];
 var guessesRemaining = 10;
 
 
-// var that represents the number of dashes for every letter in picked word
+// Pick a word from the wordChoices array
+var pickedWord = wordChoices[Math.floor(Math.random() * wordChoices.length)];
+console.log(pickedWord);
 
+// Break up the word into an array
+var pickedWordArray = pickedWord.split("");
+console.log(pickedWordArray);
+
+// var that represents the number of dashes for every letter in picked word
+  
 
 
 document.onkeyup = function(event) {
@@ -27,13 +35,8 @@ document.onkeyup = function(event) {
   console.log(userGuess);
 
 
-  // Pick a word from the wordChoices array
-  var pickedWord = wordChoices[Math.floor(Math.random() * wordChoices.length)];
-  console.log(pickedWord);
 
-  // Break up the word into an array
-  var pickedWordArray = pickedWord.split("");
-  console.log(pickedWordArray);
+
   
   
   // maybe use a loop to create a dash for each letter in the array
