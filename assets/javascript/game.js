@@ -25,7 +25,7 @@ var pickedWordArray = pickedWord.split("");
 console.log(pickedWordArray);
 
 // var that represents the number of dashes for every letter in picked word
-  
+  var currentWord = "_"
 
 
 document.onkeyup = function(event) {
@@ -34,10 +34,6 @@ document.onkeyup = function(event) {
   var userGuess = event.key.toLowerCase();
   console.log(userGuess);
 
-
-
-
-  
   
   // maybe use a loop to create a dash for each letter in the array
   
@@ -55,14 +51,26 @@ document.onkeyup = function(event) {
 
 
   // html to inject into html file
-  var html =
-    "<li>Wins: " + wins + "</li>" +
-    "<li>Current word: " + "_ _ _"  + "</li>" +
-    "<li>Number of Guesses Remaining: " + guessesRemaining + "</li>" +
-    "<li>Letters Already Guessed: " + incorrectGuessedLetters + "</li>";
+  var htmlWins =
+    "Wins: " + wins;
+    
+  // html to inject into html file
+  var htmlCurrentWord =
+    "Current word: " + currentWord;
+    
+  // html to inject into html file
+  var htmlGuessesRemaining =
+    "Number of Guesses Remaining: " + guessesRemaining;
+    
+  // html to inject into html file
+  var htmlIncorrectGuessedLetters =
+    "Letters Already Guessed: " + incorrectGuessedLetters;
 
   // Set the inner HTML contents of the #game div to our html string
-  document.querySelector("#game").innerHTML = html;
+  document.querySelector("#wins").innerHTML = htmlWins;
+  document.querySelector("#current-word").innerHTML = htmlCurrentWord;
+  document.querySelector("#guesses-remaining").innerHTML = htmlGuessesRemaining;
+  document.querySelector("#incorrect-letters").innerHTML = htmlIncorrectGuessedLetters;
 
 
 };
