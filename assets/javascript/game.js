@@ -20,12 +20,24 @@ var guessesRemaining = 10;
 var pickedWord = wordChoices[Math.floor(Math.random() * wordChoices.length)];
 console.log(pickedWord);
 
+
 // Break up the word into an array
 var pickedWordArray = pickedWord.split("");
 console.log(pickedWordArray);
 
+
 // var that represents the number of dashes for every letter in picked word
-  var currentWord = "_"
+var currentWord = [];
+
+
+// a loop to create a dash to represent each letter in the array
+function makedash () {
+  for (var i=0; i < pickedWordArray.length; i++) {
+    currentWord.push("_")
+  }
+}
+
+// reset game
 
 
 document.onkeyup = function(event) {
@@ -35,13 +47,13 @@ document.onkeyup = function(event) {
   console.log(userGuess);
 
   
-  // maybe use a loop to create a dash for each letter in the array
   
   // if else statement to see if a guessed letter is within the pickedWordArray if its not push it into the incorrectGuessedLetters
-  if (pickedWord.indexOf(userGuess) === -1) {
+  if (pickedWordArray.indexOf(userGuess) === -1) {
     incorrectGuessedLetters.push(userGuess);
     guessesRemaining--;
     // if letter has already been guessed do not push it into the array again
+    
   } else {
     // not sure now to replace dash with letter from picked word
   }
@@ -50,19 +62,19 @@ document.onkeyup = function(event) {
   // if guessesRemaining === 0 end game
 
 
-  // html to inject into html file
+  // html to inject into html file for wins
   var htmlWins =
     "Wins: " + wins;
     
-  // html to inject into html file
+  // html to inject into html file for current word
   var htmlCurrentWord =
     "Current word: " + currentWord;
     
-  // html to inject into html file
+  // html to inject into html file for guesses remaining
   var htmlGuessesRemaining =
     "Number of Guesses Remaining: " + guessesRemaining;
     
-  // html to inject into html file
+  // html to inject into html file for incorrect guessed letters
   var htmlIncorrectGuessedLetters =
     "Letters Already Guessed: " + incorrectGuessedLetters;
 
