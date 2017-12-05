@@ -1,25 +1,25 @@
 // Variables
 
 // Creates an array that lists all the possible words. 
-var wordChoices = ["tiger", "nicklaus", "palmer", "mickelson", "spieth", "mcilroy"];
-
-// blank variables to hold data
+var wordChoices = ["tiger", "nicklaus", "palmer", "player", "sneed", "norman", "nelson", "ballesteros", "sarazen", "hogan", "mickelson", "spieth", "mcilroy"];
+// Word Picked from wordChoice array
 var currentWord = "";
+// Array to hold current word
 var wordArray = [];
+// Store the length of the word
 var wordLength = 0;
+// display a dash for each letter in the word
 var dashLetter = [];
+// keep track of incorrect guessed letters
 var incorrectGuesses = [];
+// Store the users guess
 var userGuess;
-
-// Possible guessed letter
-var validKeys = "abcdefghijklmnopqrstuvwxy".split('');
-
-// Create a variables for wins
+// Create a variable for wins and sets value of 0
 var wins = 0;
+// Create a variable for losses and sets value of 0
 var losses = 0;
+// set the number of guesses that will count down with each incorrect answer
 var guessesRemaining = 10;
-
-
 
 
 //Functions
@@ -30,7 +30,7 @@ function newGame () {
   currentWord = wordChoices[Math.floor(Math.random() * wordChoices.length)];
   // Break up the word into an array
   wordArray = currentWord.split('');
-  // length of word
+  // get length of word
   wordLength = wordArray.length;
 
   // start with fresh game count and guesses
@@ -40,7 +40,7 @@ function newGame () {
 
 // a loop to create a dash to represent each letter in the array
   for (var i=0; i<wordLength; i++) {
-    dashLetter.push('_')
+    dashLetter.push('_');
   }
 
    // Set the inner HTML contents of the different elements
@@ -65,9 +65,9 @@ function checkLetters (letter) {
 
 
   if(letterInWord) {
-    for(var i=0; i<wordLength; i++) {
-      if(currentWord[i] == letter) {
-        dashLetter[i] = letter;
+    for(var j=0; j<wordLength; j++) {
+      if(currentWord[j] == letter) {
+        dashLetter[j] = letter;
       }
     }
   } else {
@@ -75,7 +75,7 @@ function checkLetters (letter) {
     guessesRemaining--;
   }
 
-  console.log(dashLetter)
+  console.log(dashLetter);
 
 }
 
@@ -83,19 +83,19 @@ function endRound () {
 
   document.getElementById("guesses-remaining").innerHTML = guessesRemaining;
   document.getElementById("current-word").innerHTML = dashLetter.join(' ');
-  document.getElementById("incorrect-letters").innerHTML = incorrectGuesses.join(' ')
+  document.getElementById("incorrect-letters").innerHTML = incorrectGuesses.join(' ');
   
   if(wordArray.toString() == dashLetter.toString()) {
     wins++;
-    alert("Winner Winner!")
+    alert("Winner! Winner!");
     document.getElementById("wins").innerHTML = wins;
     newGame();
   } else if (guessesRemaining == 0) {
-    losses++
-    alert("You lost!")
+    losses++;
+    alert("You lost!  The word was, " + currentWord + ".");
     document.getElementById("losses").innerHTML = losses;
 
-    newGame()
+    newGame();
   }
 
 }
@@ -115,33 +115,4 @@ document.onkeyup = function(event) {
   checkLetters(userGuess);
   endRound();
   console.log(userGuess);
-
- 
-  
 };
-
-
-
-
-/*
-
-  if (validKeys.indexOf(userGuess) === -1) {
-    alert("Invalid guess.  Please select a letter from a-z")
-  } else if ((pickedWordArray.indexOf(userGuess) === -1) && (incorrectGuesses.indexOf(userGuess) === -1)) {
-    
-  } else {
-    
-  }
-  
-  
-  // if else statement to see if a guessed letter is within the pickedWordArray if its not push it into the incorrectGuesses
-  if (pickedWordArray.indexOf(userGuess) === -1) {
-    incorrectGuesses.push(userGuess);
-    guessesRemaining--;
-    // if letter has already been guessed do not push it into the array again
-    
-  } else {
-    // not sure now to replace dash with letter from picked word
-  }
-
-  */
