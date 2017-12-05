@@ -1,11 +1,15 @@
 // Variables
-//=======================================================================================
 
 // Creates an array that lists all the possible words. 
 var wordChoices = ["tiger", "nicklaus", "palmer", "mickelson", "spieth", "mcilroy"];
+
+// blank variables to hold data
 var currentWord = "";
-var lettersInWord = [];
-var numberLetters = 0;
+var wordArray = [];
+var wordLength = 0;
+var dashLetter = [];
+var incorrectGuesses = [];
+var userGuess;
 
 // Possible guessed letter
 var validKeys = "abcdefghijklmnopqrstuvwxy".split('');
@@ -13,54 +17,114 @@ var validKeys = "abcdefghijklmnopqrstuvwxy".split('');
 // Create a variables for wins
 var wins = 0;
 var losses = 0;
-var guessesRemaining = 9;
+var guessesRemaining = 10;
 
-// Create an empty array to hold incorrect guessed letters.
-var incorrectGuesses = [];
-
-// Create a counter and subtracte one each time an incorret guess it given
-
-
-// number of letters in the word
-
-
-// Pick a word from the wordChoices array
-var pickedWord = wordChoices[Math.floor(Math.random() * wordChoices.length)];
-console.log(pickedWord);
-
-
-// Break up the word into an array
-var pickedWordArray = pickedWord.split("");
-console.log(pickedWordArray);
 
 
 
 //Functions
-//=======================================================================================
+
+function newGame () {
+
+  // word is picked at random
+  currentWord = wordChoices[Math.floor(Math.random() * wordChoices.length)];
+  // Break up the word into an array
+  wordArray = currentWord.split('');
+  // length of word
+  wordLength = wordArray.length;
+
+  // start with fresh game count and guesses
+  guessesRemaining = 9;
+  incorrectGuesses = [];
+  dashLetter = [];
 
 // a loop to create a dash to represent each letter in the array
+  for (var i=0; i<wordLength; i++) {
+    dashLetter.push('_')
+  }
 
-
-// function to reset the game
-function gameReset() {
-  var pickedWord = wordChoices[Math.floor(Math.random() * wordChoices.length)];
-  guessesRemaining = 9
-  incorrectGuesses = []
+   // Set the inner HTML contents of the different elements
+  document.getElementById("wins").innerHTML = wins;
+  document.getElementById("losses").innerHTML = losses;
+  document.getElementById("current-word").innerHTML = dashLetter.join(' ');
+  document.getElementById("guesses-remaining").innerHTML = guessesRemaining;
+  document.getElementById("incorrect-letters").innerHTML = incorrectGuesses;
   
 }
 
 
-//KeyUp Action
-//=======================================================================================
+function checkLetters (letter) {
+
+  var letterInWord = false;
+
+  for (var i=0; i< wordLength; i++) {
+    if(currentWord[i] == letter) {
+      letterInWord = true;
+    }
+  }
+
+
+  if(letterInWord) {
+    for(var i=0; i<wordLength; i++) {
+      if(currentWord[i] == letter) {
+        dashLetter[i] = letter;
+      }
+    }
+  } else {
+    incorrectGuesses.push(letter);
+    guessesRemaining--;
+  }
+
+  console.log(dashLetter)
+
+}
+
+function endRound () {
+
+  document.getElementById("guesses-remaining").innerHTML = guessesRemaining;
+  document.getElementById("current-word").innerHTML = dashLetter.join(' ');
+  document.getElementById("incorrect-letters").innerHTML = incorrectGuesses.join(' ')
+  
+  if(wordArray.toString() == dashLetter.toString()) {
+    wins++;
+    alert("Winner Winner!")
+    document.getElementById("wins").innerHTML = wins;
+    newGame();
+  } else if (guessesRemaining == 0) {
+    losses++
+    alert("You lost!")
+    document.getElementById("losses").innerHTML = losses;
+
+    newGame()
+  }
+
+}
+
+
+//KeyUp
+
+// starts new game
+ 
+ newGame();
+
 
 document.onkeyup = function(event) {
   
   // listen for the letter that user types
-  var userGuess = event.key.toLowerCase();
+  userGuess = event.key.toLowerCase();
+  checkLetters(userGuess);
+  endRound();
   console.log(userGuess);
 
-  // check if the guess was valid
+ 
   
+};
+
+
+
+
+/*
+
   if (validKeys.indexOf(userGuess) === -1) {
     alert("Invalid guess.  Please select a letter from a-z")
   } else if ((pickedWordArray.indexOf(userGuess) === -1) && (incorrectGuesses.indexOf(userGuess) === -1)) {
@@ -68,7 +132,6 @@ document.onkeyup = function(event) {
   } else {
     
   }
-  
   
   
   // if else statement to see if a guessed letter is within the pickedWordArray if its not push it into the incorrectGuesses
@@ -81,14 +144,4 @@ document.onkeyup = function(event) {
     // not sure now to replace dash with letter from picked word
   }
 
-
-  // if guessesRemaining === 0 end game
-
-
-  // Set the inner HTML contents of the different elements
-  document.getElementById("wins").innerHTML = wins;
-  document.getElementById("losses").innerHTML = losses;
-  document.getElementById("current-word").innerHTML = pickedWordArray;
-  document.getElementById("guesses-remaining").innerHTML = guessesRemaining;
-  document.getElementById("incorrect-letters").innerHTML = incorrectGuesses;
-};
+  */
